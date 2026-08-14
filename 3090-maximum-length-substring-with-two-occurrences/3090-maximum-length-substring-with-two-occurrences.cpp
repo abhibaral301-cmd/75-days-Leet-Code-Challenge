@@ -1,20 +1,21 @@
 class Solution {
 public:
     int maximumLengthSubstring(string s) {
-        int n = s.size();
-        int res = 0;
-        for(int left = 0;left < n; ++left){
-            array<int,26> count{};
-            for(int right = left; right<n; ++right){
-                const int index = s[right] - 'a';
-                ++count[index];
-                if(count[index]>2){
-                    break;
-                }
-                res = max(res, right - left+1);
+        vector<int> count(26, 0);
+        int left = 0;
+        int ans = 0;
+
+        for (int right = 0; right < s.size(); right++) {
+            count[s[right] - 'a']++;
+
+            while (count[s[right] - 'a'] > 2) {
+                count[s[left] - 'a']--;
+                left++;
             }
+
+            ans = max(ans, right - left + 1);
         }
-        return res;
-        
+
+        return ans;
     }
 };
