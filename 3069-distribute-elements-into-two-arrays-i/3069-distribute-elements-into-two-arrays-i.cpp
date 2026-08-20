@@ -2,17 +2,24 @@ class Solution {
 public:
     vector<int> resultArray(vector<int>& nums) {
         int n = nums.size();
-        vector<int> arr1, arr2;
-        arr1.push_back(nums[0]);
+        vector<int> ans;
+        vector<int> arr2;
+        ans.push_back(nums[0]);
         arr2.push_back(nums[1]);
-        for (int i = 2; i < n; i++) {
-            if (arr1.back() > arr2.back()) {
-                arr1.push_back(nums[i]);
-            } else {
+        int a1=0, a2=1, i=2;
+        while(i<n){
+            if(nums[a1]>nums[a2]){
+                ans.push_back(nums[i]); 
+                a1 = i;
+            }else{
                 arr2.push_back(nums[i]);
+                a2 = i;
             }
+            i++;
         }
-        arr1.insert(arr1.end(), arr2.begin(), arr2.end());
-        return arr1;
+        for(int i : arr2){
+            ans.push_back(i);
+        }
+        return ans;
     }
 };
